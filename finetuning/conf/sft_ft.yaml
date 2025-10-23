@@ -1,0 +1,119 @@
+# SFT Training Configuration
+training:
+  # Model and data settings
+  model_name_or_path: "Qwen/Qwen2-Audio-7B-Instruct"
+  data_file: "data/train_evalv1-v2/data.jsonl"
+  output_dir: "exp/sft_normal"
+  
+  # Training hyperparameters
+  seed: 42
+  data_seed: 42
+  num_train_epochs: 2
+  max_steps: 3000
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 4
+  learning_rate: 0.00005
+  weight_decay: 0.01
+  warmup_steps: 100
+  warmup_ratio: 0.1
+  max_grad_norm: 1.0
+  
+  # Optimization settings
+  optim: "adamw_torch"
+  lr_scheduler_type: "cosine"
+  bf16: true
+  gradient_checkpointing: true
+  
+  # Logging and saving
+  logging_steps: 1
+  save_steps: 1000
+  save_only_model: true
+  run_name: "ROLE-SFT-Optimized"
+  
+  # Data loading
+  dataloader_num_workers: 4
+  dataloader_pin_memory: true
+  dataloader_drop_last: true
+  remove_unused_columns: false
+  group_by_length: false
+  length_column_name: "length"
+  ignore_data_skip: false
+  
+  # Reporting
+  report_to: []  # Set to ["wandb"] to enable wandb logging
+  use_wandb: false
+  
+  # TensorBoard logging
+  enable_tensorboard: true
+  tensorboard_log_dir: null  # Will default to output_dir/tensorboard_logs if null
+  
+  # DeepSpeed
+  deepspeed_config: "conf/ds_zero1.json"  # Set to null to disable DeepSpeed
+
+# PEFT Configuration
+peft:
+  enabled: false
+  method: "lora"  # Options: "lora", "qlora", "adalora", "ia3", "prefix_tuning", "prompt_tuning"
+  
+  # LoRA specific settings
+  lora:
+    r: 16
+    lora_alpha: 32
+    target_modules: ["q_proj", "v_proj", "k_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+    lora_dropout: 0.1
+    bias: "none"
+    task_type: "CAUSAL_LM"
+    
+  # QLoRA specific settings
+  qlora:
+    r: 16
+    lora_alpha: 32
+    target_modules: ["q_proj", "v_proj", "k_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+    lora_dropout: 0.1
+    bias: "none"
+    task_type: "CAUSAL_LM"
+    bits: 4
+    
+  # AdaLoRA specific settings
+  adalora:
+    r: 16
+    lora_alpha: 32
+    target_modules: ["q_proj", "v_proj", "k_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+    lora_dropout: 0.1
+    bias: "none"
+    task_type: "CAUSAL_LM"
+    init_r: 12
+    target_r: 8
+    beta1: 0.85
+    beta2: 0.85
+    tinit: 200
+    tfinal: 1000
+    deltaT: 10
+    orth_reg_weight: 0.42
+    
+  # IA3 specific settings
+  ia3:
+    target_modules: ["q_proj", "v_proj", "k_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+    feedforward_modules: ["gate_proj", "up_proj", "down_proj"]
+    task_type: "CAUSAL_LM"
+    
+  # Prefix Tuning specific settings
+  prefix_tuning:
+    num_virtual_tokens: 20
+    encoder_hidden_size: 128
+    prefix_projection: false
+    task_type: "CAUSAL_LM"
+    
+  # Prompt Tuning specific settings
+  prompt_tuning:
+    num_virtual_tokens: 20
+    encoder_hidden_size: 128
+    task_type: "CAUSAL_LM"
+
+# Distributed training settings
+distributed:
+  gpu_num: 2
+  node_num: 1
+  node_rank: 0
+  master_addr: "127.0.0.1"
+  master_port: 32777 
