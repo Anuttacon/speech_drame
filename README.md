@@ -7,6 +7,8 @@
 </div>
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![arXiv](https://img.shields.io/badge/arXiv-2511.01261-b31b1b.svg)](https://arxiv.org/abs/2511.01261)
+
 
 **Speech-DRAME** introduces a unified framework for evaluating AI-generated speech in role-playing scenarios, addressing the critical gap in speech role-play evaluation through human-aligned benchmarks and specialized evaluation models.
 
@@ -172,6 +174,16 @@ python src/train_sft.py \
     --data_file ../data/realism_train_data.jsonl \
     --output_dir exp/realism_sft_model
 ```
+
+## 🔜 Upcoming Releases
+
+The following resources will be released in upcoming updates:
+
+- **Pre-trained Model**: The DRAME-Eval model weights will be made available for direct use
+- **Inference Pipeline**: Ready-to-use inference scripts with the pre-trained model for easy evaluation
+- **Dataset Samples**: Sample datasets will be released for research purposes
+
+Stay tuned for updates!
 
 ## 📊 Evaluation Methodology
 
@@ -362,17 +374,9 @@ Evaluation parameters can be customized through command-line arguments or config
 - [Fine-tuning Guide](finetuning/README.md)
 - [API Reference](PROJECT_STRUCTURE.md)
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
 ## 📄 License
 
-Copyright 2025 Jiatong Shi (Anuttacon)
+Copyright 2025 Anuttacon
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -394,17 +398,17 @@ If you use Speech-DRAME in your research, please cite our paper:
 @inproceedings{shi2025speech,
   title={Speech-DRAME: A Framework for Human-Aligned Benchmarks in Speech Role-Play},
   author={Shi, Jiatong and Han, Jionghao and Lu, Yichen and Pascual, Santiago and Wu, Pengfei and Cui, Chenye and Watanabe, Shinji and Weng, Chao and Zhou, Cong},
-  booktitle={International Conference on Learning Representations (ICLR)},
+  booktitle={ArXiv PrePrint},
+  url={https://arxiv.org/abs/2511.01261}, 
   year={2026},
-  url={https://openreview.net/forum?id=your-paper-id}
 }
 ```
 
 ## 🙏 Acknowledgments
 
 We thank the following organizations and communities for their contributions:
-- **Qwen Team** for providing the base audio models and technical support
-- **OpenAI, Google, and Anthropic** for API access to their multimodal models
+- **Qwen, KimiAudio, GLM** for providing the base audio models
+- **OpenAI, Google** for API access to their multimodal models
 - **Hugging Face** for hosting and distributing the evaluation datasets
 - **The open-source community** for various tools and libraries that made this work possible
 - **Human annotators** who contributed to the bilingual evaluation datasets
@@ -413,7 +417,7 @@ We thank the following organizations and communities for their contributions:
 
 For questions and support:
 - Create an issue in the repository
-- Contact the development team
+- Contact the development team (jiatong.shi@anuttacon.com or cong.zhou@anuttacon.com)
 - Check the documentation in each module's README
 
 ---
