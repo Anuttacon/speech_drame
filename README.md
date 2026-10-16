@@ -145,6 +145,15 @@ python pyscripts/eval.py \
 ```bash
 cd fewshot
 # For realism evaluation
+
+## Project resources
+
+- [Project page](https://ftshijt.github.io/speech_drame/) — current camera-ready findings, paper, and release status.
+- [Paper and discussion](https://openreview.net/forum?id=m9IP9ECrk2)
+- [Anuttacon dataset page](https://huggingface.co/datasets/Anuttacon/speech-drame-evalbench) — metadata and mel features, in preparation.
+- [ftshijt dataset page](https://huggingface.co/datasets/ftshijt/speech-drame-evalbench) — the same authorized records plus vocoder reconstructions, in preparation.
+
+The project page reflects the revised manuscript; the dataset repositories currently contain introductory information only.
 python pyscripts/eval.py \
     --model_name gpt4o \
     --data_path ../data/realism_data/test.jsonl \
