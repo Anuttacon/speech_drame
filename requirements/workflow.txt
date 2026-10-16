@@ -1,0 +1,3 @@
+-r ../analysis/requirements.txt
+soundfile>=0.12
+huggingface-hub>=0.24

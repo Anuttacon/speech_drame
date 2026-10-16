@@ -43,6 +43,7 @@ class RoleTestArguments:
     Arguments for role-related testing.
     """
     model_path: Optional[str] = field(default=None, metadata={"help": "model directory path"})
+    base_model_path: Optional[str] = field(default=None, metadata={"help": "base model override for a local PEFT adapter"})
     data_file: Optional[str] = field(default=None, metadata={"help": "test data file path"})
     out_file: Optional[str] = field(default=None, metadata={"help": "output file path"})
     batch_size: Optional[int] = field(default=8, metadata={"help": "batch size for inference"})
@@ -58,6 +59,8 @@ class RoleTestArguments:
     top_k: Optional[int] = field(default=10000, metadata={"help": "top k for generation"})
     top_p: Optional[float] = field(default=0.95, metadata={"help": "top p for generation"})
     use_gt_thinking: Optional[bool] = field(default=False, metadata={"help": "use gt thinking"})
+    zero_audio: Optional[bool] = field(default=False, metadata={"help": "ablate audio: feed silence instead of the real waveform (text-only shortcut probe, E11)"})
+    zero_text: Optional[bool] = field(default=False, metadata={"help": "ablate text conditioning: blank profile/scene/traits, keep audio (marginal value of text on top of audio)"})
 
     def __post_init__(self):
         if self.model_path is None:
@@ -67,8 +70,7 @@ class RoleTestArguments:
 def _get_audio(wav_path: str) -> torch.Tensor:
     """Load and preprocess audio file."""
     if not os.path.exists(wav_path):
-        # use a small silence tensor
-        return torch.zeros(int(0.5 * 16000))
+        raise FileNotFoundError(f"Audio file does not exist: {wav_path}")
     
     try:
         waveform, sample_rate = torchaudio.load(wav_path)
@@ -76,8 +78,7 @@ def _get_audio(wav_path: str) -> torch.Tensor:
             waveform = torchaudio.transforms.Resample(orig_freq=sample_rate, new_freq=16000)(waveform)
         return waveform[0]
     except Exception as e:
-        logging.error(f"Failed to load audio file {wav_path}: {e}")
-        return torch.zeros(int(0.5 * 16000))
+        raise RuntimeError(f"Failed to load audio file: {wav_path}") from e
 
 
 def _create_role_evaluation_prompt(data_item: Dict[str, Any], eval_type: str, specific_dimension: Optional[str] = None, use_gt_thinking: Optional[bool] = False) -> tuple[str, str, str]:
@@ -515,13 +516,9 @@ def main():
 
     # Load model and processor
     logging.info(f"Loading model from {data_args.model_path}")
-    audio_processor = AutoProcessor.from_pretrained(data_args.model_path)
-    audio_model = Qwen2AudioForConditionalGeneration.from_pretrained(
-        data_args.model_path, 
-        torch_dtype=torch.bfloat16, 
-        device_map="auto"
-    )
-    
+    from utils.model_loading import load_model_and_processor
+    audio_model, audio_processor = load_model_and_processor(data_args.model_path, data_args.base_model_path)
+
     audio_model.eval()  # Set to evaluation mode
 
     # Load test data
@@ -545,9 +542,19 @@ def main():
         batch_audios = []
         
         for bd in batch_data:
+            if data_args.zero_text:
+                # text ablation: blank the sample-specific profile/scene/traits, keep audio +
+                # generic rubric. Isolates the marginal value of the role/scene conditioning.
+                bd = {**bd, "char_profile": "", "local_scene": "", "char_style": ""}
             batch_messages.append(_get_message(bd, data_args.evaluation_type, data_args.specific_dimension, data_args.use_gt_thinking))
             audio_path = bd["wav_path"]
-            batch_audios.append(_get_audio(audio_path).numpy())
+            if data_args.zero_audio:
+                # E11 audio ablation: feed 0.5s of silence so the model gets a valid but
+                # information-free audio input; any surviving correlation is the text/context
+                # shortcut inside the model.
+                batch_audios.append(torch.zeros(int(0.5 * 16000)).numpy())
+            else:
+                batch_audios.append(_get_audio(audio_path).numpy())
             
 
         # Apply chat template and process inputs
@@ -599,6 +606,8 @@ def main():
             "transcript": input_example.get("transcript", ""),
             "local_scene": input_example.get("local_scene", ""),
             "evaluation_type": data_args.evaluation_type,
+            "zero_audio": data_args.zero_audio,
+            "zero_text": data_args.zero_text,
             "specific_dimension": data_args.specific_dimension,
             "raw_model_output": evaluation_result["raw_output"]
         }

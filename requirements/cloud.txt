@@ -1,0 +1,5 @@
+-r workflow.txt
+openai>=1.0
+google-genai>=1.0
+pydantic>=2.0
+tqdm>=4.65

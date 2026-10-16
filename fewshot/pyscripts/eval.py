@@ -20,13 +20,8 @@ import time
 from pathlib import Path
 
 # Add current directory to path for imports
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from models.qwen25_omni import Qwen25Omni
-from models.gemini25_pro import Gemini25Pro
-from models.gpt4o import GPT4oAudio
-from models.qwen2_audio import Qwen2Audio
-from models.kimi_audio import KimiAudio
 from utils import str2bool, load_few_shot_examples, select_few_shot_examples
 
 from prompts.all_prompt import get_user_prompt, get_system_prompt, get_rubric_prompt
@@ -160,14 +155,19 @@ def main():
 
     # Load model
     if args.model_name == "qwen25":
+        from models.qwen25_omni import Qwen25Omni
         model = Qwen25Omni(args.model_name, args.model_tag, get_system_prompt())
     elif args.model_name == "qwen2audio":
+        from models.qwen2_audio import Qwen2Audio
         model = Qwen2Audio(args.model_name, args.model_tag, get_system_prompt())
     elif args.model_name == "kimi_audio":
+        from models.kimi_audio import KimiAudio
         model = KimiAudio(args.model_name, args.model_tag, get_system_prompt())
     elif args.model_name == "gemini25":
+        from models.gemini25_pro import Gemini25Pro
         model = Gemini25Pro(args.model_name, args.model_tag, get_system_prompt())
     elif args.model_name == "gpt4o":
+        from models.gpt4o import GPT4oAudio
         model = GPT4oAudio(args.model_name, args.model_tag, get_system_prompt())
     else:
         raise ValueError(f"Model {args.model_name} not supported")

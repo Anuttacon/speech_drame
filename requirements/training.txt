@@ -1,0 +1,6 @@
+-r local.txt
+trl==0.19.1
+datasets==3.3.2
+pandas>=2
+wandb>=0.15
+deepspeed>=0.12

@@ -19,19 +19,21 @@ class Gemini25Pro(BaseAudioLLM):
         self.model_tag = model_tag
         self.system_prompt = system_prompt or "You are a helpful AI assistant that can understand and analyze audio content."
         
-        # Setup Google credentials
-        credential_json_path = "crediential.json"
-        if os.path.exists(credential_json_path):
-            os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_json_path
-        
-        # Initialize Gemini client
-        self.client = genai.Client(
-            vertexai=True,
-            project="gen-lang-client-0861345556",
-            location="global",
-            http_options=HttpOptions(api_version='v1')
-        )
-        
+        # Use the caller's credentials/project; never a developer-specific account.
+        use_vertex = os.getenv("GOOGLE_GENAI_USE_VERTEXAI", "").lower() in {"1", "true"}
+        key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+        if use_vertex or (os.getenv("GOOGLE_CLOUD_PROJECT") and not key):
+            project = os.getenv("GOOGLE_CLOUD_PROJECT")
+            if not project:
+                raise ValueError("Vertex requires GOOGLE_CLOUD_PROJECT and configured application default credentials")
+            self.client = genai.Client(vertexai=True, project=project,
+                location=os.getenv("GOOGLE_CLOUD_LOCATION", "global"),
+                http_options=HttpOptions(api_version="v1"))
+        elif key:
+            self.client = genai.Client(vertexai=False, api_key=key)
+        else:
+            raise ValueError("Set GEMINI_API_KEY/GOOGLE_API_KEY, or GOOGLE_CLOUD_PROJECT with Vertex ADC")
+
         # Retry settings
         self.max_retries = 10
         self.initial_delay = 1

@@ -88,6 +88,8 @@ def create_sft_config_from_yaml(config: dict, data_args) -> SFTConfig:
         bf16=training_config.get("bf16", True),
         report_to=training_config.get("report_to", []),
         gradient_checkpointing=training_config.get("gradient_checkpointing", True),
+        gradient_checkpointing_kwargs=training_config.get(
+            "gradient_checkpointing_kwargs", {"use_reentrant": False}),
         num_train_epochs=training_config.get("num_train_epochs", 2),
         max_steps=training_config.get("max_steps", 1000),
         run_name=training_config.get("run_name", "ROLE-SFT-Optimized"),

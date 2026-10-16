@@ -43,6 +43,7 @@ class RoleTestArguments:
     Arguments for role-related testing.
     """
     model_path: Optional[str] = field(default=None, metadata={"help": "model directory path"})
+    base_model_path: Optional[str] = field(default=None, metadata={"help": "base model override for a local PEFT adapter"})
     data_file: Optional[str] = field(default=None, metadata={"help": "test data file path"})
     out_file: Optional[str] = field(default=None, metadata={"help": "output file path"})
     batch_size: Optional[int] = field(default=8, metadata={"help": "batch size for inference"})
@@ -67,8 +68,7 @@ class RoleTestArguments:
 def _get_audio(wav_path: str) -> torch.Tensor:
     """Load and preprocess audio file."""
     if not os.path.exists(wav_path):
-        # use a small silence tensor
-        return torch.zeros(int(0.5 * 16000))
+        raise FileNotFoundError(f"Audio file does not exist: {wav_path}")
     
     try:
         waveform, sample_rate = torchaudio.load(wav_path)
@@ -76,8 +76,7 @@ def _get_audio(wav_path: str) -> torch.Tensor:
             waveform = torchaudio.transforms.Resample(orig_freq=sample_rate, new_freq=16000)(waveform)
         return waveform[0]
     except Exception as e:
-        logging.error(f"Failed to load audio file {wav_path}: {e}")
-        return torch.zeros(int(0.5 * 16000))
+        raise RuntimeError(f"Failed to load audio file: {wav_path}") from e
 
 
 def _create_role_evaluation_prompt(data_item: Dict[str, Any], eval_type: str, specific_dimension: Optional[str] = None, use_gt_thinking: Optional[bool] = False) -> tuple[str, str, str]:
@@ -482,13 +481,9 @@ def main():
 
     # Load model and processor
     logging.info(f"Loading model from {data_args.model_path}")
-    audio_processor = AutoProcessor.from_pretrained(data_args.model_path)
-    audio_model = Qwen2AudioForConditionalGeneration.from_pretrained(
-        data_args.model_path, 
-        torch_dtype=torch.bfloat16, 
-        device_map="auto"
-    )
-    
+    from utils.model_loading import load_model_and_processor
+    audio_model, audio_processor = load_model_and_processor(data_args.model_path, data_args.base_model_path)
+
     audio_model.eval()  # Set to evaluation mode
 
     # Load test data

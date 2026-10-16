@@ -562,4 +562,7 @@ def main():
     print(f"Visualizations saved to: {args.visualization_dir}/")
 
 if __name__ == "__main__":
+    import warnings
+    warnings.warn("Legacy scoring uses pre-rebuttal imputation. Use analysis/evaluate.py "
+                  "from the repository root for primary masked results.", FutureWarning)
     main()

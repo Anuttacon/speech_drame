@@ -312,4 +312,7 @@ def main():
         print(f"\nDetailed results saved to: {args.output}")
 
 if __name__ == "__main__":
+    import warnings
+    warnings.warn("Legacy scoring uses pre-rebuttal imputation. Use analysis/evaluate.py "
+                  "from the repository root for primary masked results.", FutureWarning)
     main()

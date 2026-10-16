@@ -1,0 +1,475 @@
+{
+  "realism_base": {
+    "track": "realism",
+    "split": "benchmark",
+    "gating": "mask",
+    "statistic": "mean of dimension Pearson correlations",
+    "n_boot": 0,
+    "seed": 12345,
+    "split_audit": {},
+    "coverage": {
+      "n_metadata_ids": 2000,
+      "n_observed_prediction_ids": 2000,
+      "n_usable_prediction_ids": 2000,
+      "n_ids_without_usable_prediction": 0,
+      "n_prediction_ids_outside_evaluation": 0
+    },
+    "overall": {
+      "dimensions": {
+        "pitch_variation": {
+          "pearson": 0.6206271002389673,
+          "n": 1966
+        },
+        "rhythmic_naturalness": {
+          "pearson": 0.6266546638287618,
+          "n": 1966
+        },
+        "stress_emphasis": {
+          "pearson": 0.6310982111037485,
+          "n": 1966
+        },
+        "emotion_accuracy": {
+          "pearson": 0.6324162523419525,
+          "n": 1966
+        },
+        "emotion_intensity": {
+          "pearson": 0.4941749530977853,
+          "n": 1796
+        },
+        "emotion_transition": {
+          "pearson": 0.4689850219981291,
+          "n": 1780
+        },
+        "voice_identity_matching": {
+          "pearson": 0.6599474495389294,
+          "n": 1966
+        },
+        "traits_embodiment": {
+          "pearson": 0.6549073572845638,
+          "n": 1966
+        },
+        "local_scene_fit": {
+          "pearson": 0.5634260689041745,
+          "n": 1966
+        },
+        "global_story_coherence": {
+          "pearson": 0.6679918432519725,
+          "n": 1966
+        }
+      },
+      "mean_dimension_pearson": 0.6020228921588984,
+      "n_defined_dimensions": 10,
+      "n_expected_dimensions": 10
+    },
+    "per_language": {
+      "en": {
+        "dimensions": {
+          "pitch_variation": {
+            "pearson": 0.6306682207741907,
+            "n": 975
+          },
+          "rhythmic_naturalness": {
+            "pearson": 0.6291261988386924,
+            "n": 975
+          },
+          "stress_emphasis": {
+            "pearson": 0.6477952700450901,
+            "n": 975
+          },
+          "emotion_accuracy": {
+            "pearson": 0.6289511062401325,
+            "n": 975
+          },
+          "emotion_intensity": {
+            "pearson": 0.5373962908629744,
+            "n": 888
+          },
+          "emotion_transition": {
+            "pearson": 0.5202646191082337,
+            "n": 878
+          },
+          "voice_identity_matching": {
+            "pearson": 0.6538776446761935,
+            "n": 975
+          },
+          "traits_embodiment": {
+            "pearson": 0.6244868899839766,
+            "n": 975
+          },
+          "local_scene_fit": {
+            "pearson": 0.5935948205407113,
+            "n": 975
+          },
+          "global_story_coherence": {
+            "pearson": 0.6468765980058617,
+            "n": 975
+          }
+        },
+        "mean_dimension_pearson": 0.6113037659076056,
+        "n_defined_dimensions": 10,
+        "n_expected_dimensions": 10
+      },
+      "zh": {
+        "dimensions": {
+          "pitch_variation": {
+            "pearson": 0.586124648992948,
+            "n": 991
+          },
+          "rhythmic_naturalness": {
+            "pearson": 0.5727008058713129,
+            "n": 991
+          },
+          "stress_emphasis": {
+            "pearson": 0.5689871233071543,
+            "n": 991
+          },
+          "emotion_accuracy": {
+            "pearson": 0.6038206610976575,
+            "n": 991
+          },
+          "emotion_intensity": {
+            "pearson": 0.4349492054150247,
+            "n": 908
+          },
+          "emotion_transition": {
+            "pearson": 0.4152270691387938,
+            "n": 902
+          },
+          "voice_identity_matching": {
+            "pearson": 0.6672441171690618,
+            "n": 991
+          },
+          "traits_embodiment": {
+            "pearson": 0.6631784172404254,
+            "n": 991
+          },
+          "local_scene_fit": {
+            "pearson": 0.49008452692590054,
+            "n": 991
+          },
+          "global_story_coherence": {
+            "pearson": 0.6964343768154467,
+            "n": 991
+          }
+        },
+        "mean_dimension_pearson": 0.5698750951973726,
+        "n_defined_dimensions": 10,
+        "n_expected_dimensions": 10
+      }
+    },
+    "language_macro_pearson": 0.590589430552489
+  },
+  "archetype": {
+    "track": "archetype",
+    "split": "benchmark",
+    "gating": "mask",
+    "statistic": "mean of dimension Pearson correlations",
+    "n_boot": 0,
+    "seed": 12345,
+    "split_audit": {},
+    "coverage": {
+      "n_metadata_ids": 1499,
+      "n_observed_prediction_ids": 1500,
+      "n_usable_prediction_ids": 1499,
+      "n_ids_without_usable_prediction": 0,
+      "n_prediction_ids_outside_evaluation": 1
+    },
+    "overall": {
+      "dimensions": {
+        "audio_quality": {
+          "pearson": 0.6821738706700871,
+          "n": 1312
+        },
+        "human_likeness": {
+          "pearson": 0.679453422845416,
+          "n": 1312
+        },
+        "appropriateness": {
+          "pearson": 0.5247938823707151,
+          "n": 1312
+        }
+      },
+      "mean_dimension_pearson": 0.6288070586287393,
+      "n_defined_dimensions": 3,
+      "n_expected_dimensions": 3
+    },
+    "per_language": {
+      "en": {
+        "dimensions": {
+          "audio_quality": {
+            "pearson": 0.4526816634839319,
+            "n": 682
+          },
+          "human_likeness": {
+            "pearson": 0.5478928831802288,
+            "n": 682
+          },
+          "appropriateness": {
+            "pearson": 0.4210554468202645,
+            "n": 682
+          }
+        },
+        "mean_dimension_pearson": 0.4738766644948084,
+        "n_defined_dimensions": 3,
+        "n_expected_dimensions": 3
+      },
+      "zh": {
+        "dimensions": {
+          "audio_quality": {
+            "pearson": 0.2584800945389994,
+            "n": 630
+          },
+          "human_likeness": {
+            "pearson": 0.3860072082923118,
+            "n": 630
+          },
+          "appropriateness": {
+            "pearson": 0.2704883299146252,
+            "n": 630
+          }
+        },
+        "mean_dimension_pearson": 0.3049918775819788,
+        "n_defined_dimensions": 3,
+        "n_expected_dimensions": 3
+      }
+    },
+    "language_macro_pearson": 0.3894342710383936
+  },
+  "realism_real_v2": {
+    "track": "realism",
+    "split": "authentic",
+    "gating": "mask",
+    "statistic": "mean of dimension Pearson correlations",
+    "n_boot": 0,
+    "seed": 12345,
+    "split_audit": {
+      "n_train_ids": 12070,
+      "n_test_ids": 1084,
+      "overlap": 0
+    },
+    "coverage": {
+      "n_metadata_ids": 1084,
+      "n_observed_prediction_ids": 1084,
+      "n_usable_prediction_ids": 1084,
+      "n_ids_without_usable_prediction": 0,
+      "n_prediction_ids_outside_evaluation": 0
+    },
+    "overall": {
+      "dimensions": {
+        "pitch_variation": {
+          "pearson": -0.3569277783005276,
+          "n": 1084
+        },
+        "rhythmic_naturalness": {
+          "pearson": -0.05089801130699676,
+          "n": 1084
+        },
+        "stress_emphasis": {
+          "pearson": -0.22768681499798127,
+          "n": 1084
+        },
+        "emotion_accuracy": {
+          "pearson": -0.16115454247782343,
+          "n": 1084
+        },
+        "emotion_intensity": {
+          "pearson": -0.3325904938009691,
+          "n": 1084
+        },
+        "emotion_transition": {
+          "pearson": -0.2907602862152892,
+          "n": 1084
+        },
+        "voice_identity_matching": {
+          "pearson": -0.040753554335708264,
+          "n": 1084
+        },
+        "traits_embodiment": {
+          "pearson": 0.41946852074664637,
+          "n": 1084
+        },
+        "local_scene_fit": {
+          "pearson": -0.2616540351112987,
+          "n": 1084
+        },
+        "global_story_coherence": {
+          "pearson": -0.11783962147336578,
+          "n": 1084
+        }
+      },
+      "mean_dimension_pearson": -0.14207966172733136,
+      "n_defined_dimensions": 10,
+      "n_expected_dimensions": 10
+    },
+    "per_language": {
+      "zh": {
+        "dimensions": {
+          "pitch_variation": {
+            "pearson": -0.3569277783005276,
+            "n": 1084
+          },
+          "rhythmic_naturalness": {
+            "pearson": -0.05089801130699676,
+            "n": 1084
+          },
+          "stress_emphasis": {
+            "pearson": -0.22768681499798127,
+            "n": 1084
+          },
+          "emotion_accuracy": {
+            "pearson": -0.16115454247782343,
+            "n": 1084
+          },
+          "emotion_intensity": {
+            "pearson": -0.3325904938009691,
+            "n": 1084
+          },
+          "emotion_transition": {
+            "pearson": -0.2907602862152892,
+            "n": 1084
+          },
+          "voice_identity_matching": {
+            "pearson": -0.040753554335708264,
+            "n": 1084
+          },
+          "traits_embodiment": {
+            "pearson": 0.41946852074664637,
+            "n": 1084
+          },
+          "local_scene_fit": {
+            "pearson": -0.2616540351112987,
+            "n": 1084
+          },
+          "global_story_coherence": {
+            "pearson": -0.11783962147336578,
+            "n": 1084
+          }
+        },
+        "mean_dimension_pearson": -0.14207966172733136,
+        "n_defined_dimensions": 10,
+        "n_expected_dimensions": 10
+      }
+    },
+    "language_macro_pearson": -0.14207966172733136,
+    "within_speaker": {
+      "mean_dimension_pearson": 0.02917900588538124,
+      "by_speaker": {
+        "qyf": 0.08857152061813747,
+        "yy": -0.08802159335788258,
+        "zrr": -0.005087158270479467,
+        "zyx": 0.12125325455174954
+      }
+    }
+  },
+  "human_reference": {
+    "within_speaker": 0.339822142743996,
+    "per_speaker": {
+      "yy": 0.4529800685641338,
+      "zyx": 0.19456192860544883,
+      "qyf": 0.4958732792849515,
+      "zrr": 0.21587329452145015
+    },
+    "clean_pooled": 0.5154266676573223
+  },
+  "corrected_cluster_bootstrap": {
+    "Gemini2.5Pro (FS)": {
+      "n_clusters": 1013,
+      "n_samples": 1966,
+      "DRAME_avg_ci": [
+        0.5536012650651546,
+        0.6333985404501274
+      ],
+      "baseline_avg_ci": [
+        0.36032237123003147,
+        0.41127235076649993
+      ],
+      "delta_ci": [
+        0.16929134172550775,
+        0.24612584785404992
+      ],
+      "delta_p_le0": 0.0,
+      "delta_point": 0.21485649723529027
+    },
+    "GPT4o-audio (FS)": {
+      "n_clusters": 1013,
+      "n_samples": 1966,
+      "DRAME_avg_ci": [
+        0.5536012650651546,
+        0.6333985404501274
+      ],
+      "baseline_avg_ci": [
+        0.2711723961027584,
+        0.34775430436597343
+      ],
+      "delta_ci": [
+        0.21759699012419312,
+        0.35289416518534145
+      ],
+      "delta_p_le0": 0.0,
+      "delta_point": 0.2966503209858205
+    }
+  },
+  "corrected_authentic_bootstrap": {
+    "n_boot": 2000,
+    "sample_n_ids": 1084,
+    "cluster_n_ids": 1082,
+    "cluster_n_speakers": 4,
+    "sample_paired": {
+      "drame_avg": [
+        -0.14207966172733139,
+        -0.17737492031244387,
+        -0.10693215564133611
+      ],
+      "baseline_avg": [
+        0.22728864336892607,
+        0.19103377120172885,
+        0.2627313699702502
+      ],
+      "delta": [
+        -0.36936830509625745,
+        -0.4268694595399905,
+        -0.3105418077758071
+      ],
+      "p_two_sided": 0.0,
+      "n_common_per_dim": 1084
+    },
+    "speaker_clustered_paired": {
+      "drame_avg": [
+        -0.14472354957307934,
+        -0.2955020476989335,
+        0.06359637923325377
+      ],
+      "baseline_avg": [
+        0.22756494303467362,
+        0.03008831362253827,
+        0.32932486958947554
+      ],
+      "delta": [
+        -0.372288492607753,
+        -0.5683635031451512,
+        0.011873343205574038
+      ],
+      "p_two_sided": 0.125,
+      "n_common_per_dim": 1082
+    }
+  },
+  "verification": {
+    "observed_at_utc": "2026-10-16T11:42:35.746866+00:00",
+    "source": "Saved full-corpus experimental metadata and predictions; evaluated in memory on dev-va",
+    "runtime": {
+      "python": "system python3 on dev-va",
+      "numpy": "1.26.4",
+      "scipy": "1.15.2"
+    },
+    "local_tests_passed": 22,
+    "gpu_inference_or_training_run": false,
+    "raw_data_or_predictions_published": false,
+    "full_pool_pooled_human_reference": 0.561201523922073,
+    "notes": [
+      "Primary model point estimates reproduced exactly.",
+      "Corrected bootstrap implementations change intervals; see review notes.",
+      "Clean pooled human reference differs from full-pool reference.",
+      "Saved five-trial authentic baseline is 0.227289 versus the manuscript rounded entry of 0.226."
+    ]
+  }
+}

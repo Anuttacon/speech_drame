@@ -1,5 +1,12 @@
 # Zero-shot Speech Drame Evaluation
 
+Start with [the dataset-to-results workflow](../docs/RUNNING.md):
+`python run.py prepare` converts the release schema; `infer`, `train`, and `score` connect the steps.
+The manual commands below document the underlying scripts.
+
+
+> Rebuttal update: use [the primary masked scorer](../analysis/README.md) for revised-paper results. The older plotting/scoring commands below retain historical imputation conventions. The clean authentic-speech protocol requires explicit disjoint training/test manifests.
+
 This module provides zero-shot evaluation capabilities for AI models on speech drama generation tasks. It supports multiple state-of-the-art audio language models and comprehensive evaluation metrics.
 
 ## 🎯 Overview
